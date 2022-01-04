@@ -29,7 +29,7 @@ class App extends Component {
                     <SearchPanel/>
                     <AppFilter/>
                 </div>
-                <EmployersList data={data}
+                <EmployersList data={this.state.data}
                                onDelete={id => console.log(id)}/>
                 <EmployeesAddForm/>
             </div>
