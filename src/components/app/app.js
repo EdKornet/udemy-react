@@ -3,7 +3,7 @@ import {Component} from 'react';
 import AppInfo from "../app-info/app-info";
 import SearchPanel from "../search-panel/search-panel";
 import AppFilter from "../app-filter/app-filter";
-import EmployersList from "../emlpoyers-list/employers-list";
+import EmployeesList from "../emlpoyers-list/employees-list";
 import EmployeesAddForm from "../employers-add-form/employers-add-form";
 
 import "./app.css";
@@ -19,6 +19,7 @@ class App extends Component {
                 {name : "Olehandro", salary: 5000, increase : false, id: 4}
             ]
         }
+        this.maxId = 5;
     }
 
     deleteItem = (id) => {
@@ -29,6 +30,21 @@ class App extends Component {
         })
     }
 
+    addItem = (name, salary) => {
+        const newItem = {
+            name,
+            salary,
+            increase: false,
+            id: this.maxId++
+        }
+        this.setState(({data}) => {
+            const newArr = [...data, newItem];
+            return {
+                data: newArr
+            }
+        });
+    }
+
     render() {
         return (
             <div className="app">
@@ -37,9 +53,9 @@ class App extends Component {
                     <SearchPanel/>
                     <AppFilter/>
                 </div>
-                <EmployersList data={this.state.data}
+                <EmployeesList data={this.state.data}
                                onDelete={this.deleteItem}/>
-                <EmployeesAddForm/>
+                <EmployeesAddForm onAdd={this.addItem}/>
             </div>
         );
     }
