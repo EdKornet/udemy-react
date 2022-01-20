@@ -4,7 +4,7 @@ import AppInfo from "../app-info/app-info";
 import SearchPanel from "../search-panel/search-panel";
 import AppFilter from "../app-filter/app-filter";
 import EmployeesList from "../emlpoyers-list/employees-list";
-import EmployeesAddForm from "../employers-add-form/employers-add-form";
+import EmployeesAddForm from "../employers-add-form/employees-add-form";
 
 import "./app.css";
 
@@ -12,11 +12,11 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            data : [
-                {name : "John", salary: 800, increase : false, id: 1},
-                {name : "Ed", salary: 300, increase : true, id: 2},
-                {name : "Alex", salary: 500, increase : false, id: 3},
-                {name : "Olehandro", salary: 5000, increase : false, id: 4}
+            data: [
+                {name: "John", salary: 800, increase: false,rise: true, id: 1},
+                {name: "Ed", salary: 300, increase: true,rise: false, id: 2},
+                {name: "Alex", salary: 500, increase: false,rise: false, id: 3},
+                {name: "Olehandro", salary: 5000, increase: false,rise: false, id: 4}
             ]
         }
         this.maxId = 5;
@@ -45,6 +45,14 @@ class App extends Component {
         });
     }
 
+    onToggleIncrease = (id) => {
+        console.log(`Increase this ${id}`)
+    }
+
+    onToggleRise = (id) => {
+        console.log(`Rise this ${id}`);
+    }
+
     render() {
         return (
             <div className="app">
@@ -54,7 +62,10 @@ class App extends Component {
                     <AppFilter/>
                 </div>
                 <EmployeesList data={this.state.data}
-                               onDelete={this.deleteItem}/>
+                               onDelete={this.deleteItem}
+                               onToggleIncrease={this.onToggleIncrease}
+                               onToggleRise={this.onToggleRise}
+                />
                 <EmployeesAddForm onAdd={this.addItem}/>
             </div>
         );
