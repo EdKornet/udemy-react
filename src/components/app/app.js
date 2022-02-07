@@ -24,6 +24,10 @@ class App extends Component {
         this.maxId = 5;
     }
 
+    componentWillUnmount() {
+        console.log('Theis going to be unmounted');
+    }
+
     deleteItem = (id) => {
         this.setState(({data}) => {
             return {
@@ -85,7 +89,7 @@ class App extends Component {
     }
 
     filterPost = (items, filter) => {
-        switch(filter) {
+        switch (filter) {
             case"rise":
                 return items.filter(item => item.rise);
             case "moreThen1000":
@@ -99,8 +103,24 @@ class App extends Component {
         this.setState({filter});
     }
 
-    onSalaryChange = (e) => {
-        console.log(e.currentTarget.value);
+    onSalaryChange = (salary, id) => {
+        let salaryNum = parseInt(salary);
+        console.log(salaryNum);
+        console.log(!isNaN(salaryNum));
+
+        if (isNaN(salaryNum)) {
+            alert("INVALID NUMBER");
+            return;
+        }
+        localStorage.setItem("f", "gfdsasd");
+        this.setState(({data}) => ({
+            data: data.map(item => {
+                if (item.id === id) {
+                    return {...item, salary: salaryNum}
+                }
+                return item;
+            })
+        }))
     }
 
     render() {
@@ -118,12 +138,14 @@ class App extends Component {
                 <EmployeesList data={visibleData}
                                onDelete={this.deleteItem}
                                onToggleProp={this.onToggleProp}
-                               onSalaryChange={this.onSalaryChange}
+                               onSalaryChange1={this.onSalaryChange}
                 />
                 <EmployeesAddForm onAdd={this.addItem}/>
             </div>
         );
     }
+
+
 }
 
 export default App;
